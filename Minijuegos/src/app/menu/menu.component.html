@@ -1,0 +1,27 @@
+<div class="container text-center">
+  <p>Bienvenido {{jugador}}</p>
+  <div class="container-fluid">
+    <div class="conectados">
+      <span>Usuarios conectados: {{numero_conectados}}</span>
+      <ul>
+        <li *ngFor="let user of conectados">{{user}}</li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <h4>RULETA RUSA</h4>
+        <img src="https://chemaherrero.files.wordpress.com/2016/09/ruleta_rusa2.jpg" width="200px" height="180px">
+      </div>
+      <div class="col-4">
+        <h4>INSTRUCCIONES</h4>
+        <p>Todos los vasos de la mesa contienen agua mineral pero uno de ellos además lleva veneno.
+          Si eliges el equivocado... PIERDES</p>
+      </div>
+      <div class="col-4">
+        <button type="button" name="button" [routerLink]="['/menu/ruleta']" (click)="jugar()">JUGAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-chat-general></app-chat-general>

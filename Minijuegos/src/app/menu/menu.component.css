@@ -1,0 +1,27 @@
+p, h4, span, li {
+  color: white;
+}
+
+button {
+  background-color: rgb(180, 58, 58);
+  border: none;
+}
+
+button:hover {
+  background-color: rgb(205, 202, 202);
+}
+
+.row {
+  padding: 10%;
+}
+
+.conectados {
+  position: fixed;
+  justify-content: center;
+  left: 0;
+  top : 0;
+}
+
+.conectados li {
+  list-style: none;
+}

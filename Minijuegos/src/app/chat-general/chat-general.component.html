@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="chat">
+    <ul>
+      <li *ngFor="let m of lista"><span>{{m.nombre}}</span>: {{m.mensaje}}</li>
+    </ul>
+  </div>
+  <div class="row">
+    <input type="text" name="" value="" [(ngModel)]=msj>
+    <button type="button" name="button" (click)="enviarMenjase()">Enviar</button>
+  </div>
+</div>

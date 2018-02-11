@@ -1,0 +1,6 @@
+<div class="container-fluid text-center">
+  <h1>BIENVENIDO A MINIJUEGOS</h1>
+  <p>Por favor, introduce tu nick:</p>
+  <input type="text" name="" value="" [(ngModel)]=nick>
+  <button type="button" name="button" [routerLink]="['/menu']" (keyup.enter)="entrar(nick)" (click)="entrar(nick)">Entrar</button>
+</div>
