@@ -5,7 +5,7 @@
     </ul>
   </div>
   <div class="row">
-    <input type="text" name="" value="" [(ngModel)]=msj>
-    <button type="button" name="button" (click)="enviarMenjase()">Enviar</button>
+    <input type="text" name="" value="" [(ngModel)]=msj (keyup.enter)="enviarMensaje()">
+    <button type="button" name="button" (click)="enviarMensaje()">Enviar</button>
   </div>
 </div>

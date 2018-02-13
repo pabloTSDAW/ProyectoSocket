@@ -23,7 +23,6 @@ export class ServicioService {
       return Observable.create((observer)=>{
         this.socket.on('conectados', (data)=>{
           observer.next(data);
-          console.log(data);
         });
       });
     }
@@ -33,7 +32,6 @@ export class ServicioService {
         this.socket.on('numero', (data)=>{
           observer.next(data);
           this.numero = data;
-          console.log(data);
         });
       });
     }
@@ -89,6 +87,18 @@ export class ServicioService {
     getVasoElegido(){
       return Observable.create((observer)=>{
         this.socket.on('vaso', (data)=>{
+          observer.next(data);
+        });
+      });
+    }
+
+    // sendVida(user){
+    //   this.socket.emit('pierde-vida', user);
+    // }
+
+    getJugadoresSala(): Observable<any>{
+      return Observable.create((observer)=>{
+        this.socket.on('jugadores', (data)=>{
           observer.next(data);
         });
       });

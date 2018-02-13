@@ -9,9 +9,13 @@
   margin-bottom: 20px;
 }
 
-.mensaje {
+.mensaje, .info {
   width: 100%;
   margin-top: 20px;
+  color: rgb(180, 58, 58);
+}
+
+h1 {
   color: rgb(180, 58, 58);
 }
 

@@ -20,7 +20,7 @@ export class ChatGeneralComponent implements OnInit {
     });
   }
 
-  enviarMenjase(){
+  enviarMensaje(){
     this._ServicioService.sendMessage({nombre: this.nick, mensaje: this.msj});
     this.msj = "";
   }

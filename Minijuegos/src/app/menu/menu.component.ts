@@ -19,7 +19,6 @@ export class MenuComponent implements OnInit {
     });
     this._ServicioService.getConectados().subscribe(data=>{
       this.conectados = data;
-      console.log(this.conectados);
     });
   }
 

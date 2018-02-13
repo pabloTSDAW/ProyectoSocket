@@ -3,13 +3,22 @@
   <div class="row">
     <div class="col-12">
       <div class="row ruleta">
-        <div class="col-3 vasos" *ngFor="let vaso of vasos">
+        <h1 class="esperando align-center">ESPERANDO A OTRO JUGADOR</h1>
+        <div class="col-6 col-md-3 vasos" *ngFor="let vaso of vasos">
           <img *ngIf="vaso.lleno; else elseBlock" src="../assets/lleno.png" alt="" width="100px" height="100px" (click)="muestra($event, vaso)">
           <ng-template #elseBlock><img src="../assets/vacio.png" alt="" width="100px" height="100px" (click)="muestra($event, vaso)"></ng-template>
         </div>
         <div class="row mensaje">
           <div class="col-12 text-center">
             <h2>ELEGISTE... MAL</h2>
+
+            <!-- <img src="../assets/loco.gif" alt=""> -->
+          </div>
+        </div>
+        <div class="row info">
+          <div class="col-12 text-center">
+            <h2>Aún no es tu turno</h2>
+
             <!-- <img src="../assets/loco.gif" alt=""> -->
           </div>
         </div>

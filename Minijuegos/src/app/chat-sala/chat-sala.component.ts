@@ -18,14 +18,13 @@ export class ChatSalaComponent implements OnInit {
     this.nick = this._ServicioService.nombre;
     this._ServicioService.getSala().subscribe(data=>{
       this.sala = data;
-      console.log(this.sala)
     });
     this._ServicioService.getMessageSala().subscribe(data=>{
       this.lista.push(data);
     });
   }
 
-  enviarMenjase(){
+  enviarMensaje(){
     this._ServicioService.sendMessageSala({nombre: this.nick, mensaje: this.msj});
     this.msj = "";
   }

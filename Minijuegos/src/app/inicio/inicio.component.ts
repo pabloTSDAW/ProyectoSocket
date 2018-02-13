@@ -15,7 +15,6 @@ export class InicioComponent implements OnInit {
   }
 
   entrar() {
-    console.log(this.nick);
     if (this.nick == "") {
       this.nick = "Anonymous";
     }
