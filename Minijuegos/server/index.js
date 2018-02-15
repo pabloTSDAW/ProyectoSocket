@@ -7,25 +7,16 @@ let server = http.Server(app);
 let socketIO = require('socket.io');
 let io = socketIO(server);
 
+const path = require('path');
+
+const publicPath = path.join(__dirname, '../public');
+const port = process.env.PORT || 3000;
+
 var numeroJugadores = 0;
 var conectados = [];
 let salaN = 1;
 let jugadoresSala = [[], []];
 
-const port = process.env.PORT || 3000;
-
-//MEZCLAR ARRAY
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-  return array;
-}
 
 //--------------------------------CONEXION------------------------------------//
 
@@ -54,7 +45,6 @@ io.on('connection', (socket) => {
     let vasos = [{num: 1, veneno: false, lleno: true}, {num: 2, veneno: true, lleno: true}, {num: 3, veneno: false, lleno: true}, {num: 4, veneno: false, lleno: true}, {num: 5, veneno: false, lleno: true},
                   {num: 6, veneno: false, lleno: true}, {num: 7, veneno: false, lleno: true}, {num: 8, veneno: false, lleno: true}, {num: 9, veneno: false, lleno: true}, {num: 10, veneno: false, lleno: true},
                   {num: 11, veneno: false, lleno: true}, {num: 12, veneno: false, lleno: true}];
-    vasos = shuffle(vasos);
 
     room = salaN;
     io.to("sala-" + salaN).emit('joinSala', "Estás en la sala: " + salaN);
@@ -89,7 +79,6 @@ io.on('connection', (socket) => {
         for(let vaso of vasos){
           vaso.lleno = true;
         }
-        vasos = shuffle(vasos);
         io.to("sala-" + room).emit('vasos', vasos);
       }
       for(let jugador of jugadoresSala[salaN-1]){
