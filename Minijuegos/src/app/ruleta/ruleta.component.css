@@ -1,36 +1,54 @@
 .tablero {
-  margin-top: 100px;
-  margin-left: 30%;
-  width: 70%;
-  height: 500px;
+  margin-top: 15px;
 }
 
-.vasos {
-  margin-bottom: 20px;
+.vasos div {
+  margin-bottom: 50px;
 }
 
 .mensaje, .info {
   width: 100%;
   margin-top: 20px;
-  color: rgb(180, 58, 58);
+  color: rgb(99, 183, 230);
 }
 
-h1 {
-  color: rgb(180, 58, 58);
+h1, h2 {
+  font-family: molot;
+  color: rgb(99, 183, 230);
 }
 
-.sala {
-  position: fixed;
+p {
+  color: rgb(85, 85, 85);
+}
+
+span {
+  color: rgb(99, 183, 230);
+}
+
+.vidas {
+  display: flex;
   justify-content: center;
-  left: 0;
-  top : 0;
+  margin-bottom: 50px;
+}
+
+#myModal {
+  width: 80%;
+}
+
+.modal-footer button {
+  background-color: rgb(99, 183, 230);
   color: white;
+  border: 2px solid rgb(99, 183, 230);
+}
+
+.modal-footer button:hover {
+  background-color: inherit;
+  color: rgb(99, 183, 230);
+  font-weight: bold;
 }
 
 /* CHAT SALA */
 .chat {
   width: 300px;
   background-color: white;
-  position: fixed;
-  bottom: 0;
 }

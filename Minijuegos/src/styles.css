@@ -3,3 +3,8 @@
 body {
   background-color: rgba(6, 6, 6, 0.87);
 }
+
+@font-face {
+  font-family: molot;
+  src: url('assets/Molot.otf');
+}

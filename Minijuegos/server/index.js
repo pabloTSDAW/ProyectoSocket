@@ -14,6 +14,19 @@ let jugadoresSala = [[], []];
 
 const port = process.env.PORT || 3000;
 
+//MEZCLAR ARRAY
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+}
+
 //--------------------------------CONEXION------------------------------------//
 
 io.on('connection', (socket) => {
@@ -41,6 +54,8 @@ io.on('connection', (socket) => {
     let vasos = [{num: 1, veneno: false, lleno: true}, {num: 2, veneno: true, lleno: true}, {num: 3, veneno: false, lleno: true}, {num: 4, veneno: false, lleno: true}, {num: 5, veneno: false, lleno: true},
                   {num: 6, veneno: false, lleno: true}, {num: 7, veneno: false, lleno: true}, {num: 8, veneno: false, lleno: true}, {num: 9, veneno: false, lleno: true}, {num: 10, veneno: false, lleno: true},
                   {num: 11, veneno: false, lleno: true}, {num: 12, veneno: false, lleno: true}];
+    vasos = shuffle(vasos);
+
     room = salaN;
     io.to("sala-" + salaN).emit('joinSala', "Estás en la sala: " + salaN);
 
@@ -64,29 +79,33 @@ io.on('connection', (socket) => {
     socket.on('vaso-elegido', function(msg) {
       if(!vasos[msg].veneno){
         vasos[msg].lleno = false;
+        io.to("sala-" + room).emit('vaso', vasos.indexOf(vasos[msg]));
       }
       else {
         for(let jugador of jugadoresSala[salaN-1]){
           if (jugador.turno == true) jugador.vidas -= 1;
+          if (jugador.vidas == 0) io.to("sala-" + room).emit('fin', jugadoresSala[salaN-1]);
         }
+        for(let vaso of vasos){
+          vaso.lleno = true;
+        }
+        vasos = shuffle(vasos);
+        io.to("sala-" + room).emit('vasos', vasos);
       }
       for(let jugador of jugadoresSala[salaN-1]){
         if (jugador.turno == true) jugador.turno = false;
         else jugador.turno = true;
         io.to("sala-" + room).emit('jugadores', jugadoresSala[salaN-1]);
       }
-      io.to("sala-" + room).emit('vaso', vasos.indexOf(vasos[msg]));
-      console.log(jugadoresSala[salaN-1]);
     });
 
-    // socket.on('pierde-vida', function(msg) {
-    //   console.log(msg);
-    //   for(let jugador of jugadoresSala[salaN-1]){
-    //     if (jugador == msg){
-    //       jugador.vida = jugador.vida - 1;
-    //     }
-    //   }
-    // });
+    //REINICIAR PARTIDA
+    socket.on('reiniciar', function() {
+      for(let jugador of jugadoresSala[salaN-1]){
+        jugador.vidas = 3;
+        io.to("sala-" + room).emit('jugadores', jugadoresSala[salaN-1]);
+      }
+    });
 
   });
 

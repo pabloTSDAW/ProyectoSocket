@@ -1,29 +1,59 @@
-<span class="sala">{{sala}}</span>
 <div class="container-fluid tablero">
   <div class="row">
-    <div class="col-12">
-      <div class="row ruleta">
-        <h1 class="esperando align-center">ESPERANDO A OTRO JUGADOR</h1>
-        <div class="col-6 col-md-3 vasos" *ngFor="let vaso of vasos">
+    <div class="col-3">
+      <span class="sala">{{sala}}</span>
+    </div>
+    <div class="col-9">
+      <div class="vidas col-12"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <app-chat-sala class="chat"></app-chat-sala>
+    </div>
+    <div class="col-1 clearfix"></div>
+    <div class="col-7">
+      <div class="row esperando">
+        <div class="col-12 text-center">
+          <h1>ESPERANDO A OTRO JUGADOR</h1>
+        </div>
+      </div>
+      <div class="row vasos">
+        <div class="col-6 col-md-3" *ngFor="let vaso of vasos">
           <img *ngIf="vaso.lleno; else elseBlock" src="../assets/lleno.png" alt="" width="100px" height="100px" (click)="muestra($event, vaso)">
           <ng-template #elseBlock><img src="../assets/vacio.png" alt="" width="100px" height="100px" (click)="muestra($event, vaso)"></ng-template>
         </div>
-        <div class="row mensaje">
-          <div class="col-12 text-center">
-            <h2>ELEGISTE... MAL</h2>
-
-            <!-- <img src="../assets/loco.gif" alt=""> -->
-          </div>
+      </div>
+      <div class="row info">
+        <div class="col-12 text-center">
+          <h2>Aun no es tu turno</h2>
         </div>
-        <div class="row info">
-          <div class="col-12 text-center">
-            <h2>Aún no es tu turno</h2>
+      </div>
+      <!-- <div class="row resultado">
+        <div class="col-12 text-center">
 
-            <!-- <img src="../assets/loco.gif" alt=""> -->
+        </div>
+      </div> -->
+      <div class="col-12">
+        <div class="container">
+          <div class="modal modal-dialog" id="myModal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title">Resultado</h2>
+              </div>
+              <div class="modal-body">
+                <!-- <p>El ganador ha sido: <span>{{ganador.nombre}}</span> con <span>{{ganador.vidas}}</span> vidas restantes.</p>
+                <p>El perdedor ha sido: <span>{{perdedor.nombre}}</span> con <span>{{perdedor.vidas}}</span> vidas restantes.</p> -->
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-succes" data-dismiss="modal" (click)="reiniciarPartida()">Revancha</button>
+                <button type="button" class="btn btn-succes" data-dismiss="modal" (click)="cerrarModal()" [routerLink]="['']">Salir</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="col-1 clearfix"></div>
   </div>
 </div>
-<app-chat-sala class="chat"></app-chat-sala>

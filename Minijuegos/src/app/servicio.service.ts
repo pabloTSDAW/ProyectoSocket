@@ -12,7 +12,7 @@ export class ServicioService {
     public numero;
 
     constructor() {
-        this.socket = io(this.url);
+      this.socket = io(this.url);
     }
 
     sendUser(nombre){
@@ -92,16 +92,24 @@ export class ServicioService {
       });
     }
 
-    // sendVida(user){
-    //   this.socket.emit('pierde-vida', user);
-    // }
-
     getJugadoresSala(): Observable<any>{
       return Observable.create((observer)=>{
         this.socket.on('jugadores', (data)=>{
           observer.next(data);
         });
       });
+    }
+
+    getGanador(): Observable<any>{
+      return Observable.create((observer)=>{
+        this.socket.on('fin', (data)=>{
+          observer.next(data);
+        });
+      });
+    }
+
+    sendReiniciar(){
+      this.socket.emit('reiniciar');
     }
 
 }

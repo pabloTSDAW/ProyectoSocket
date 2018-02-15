@@ -1,11 +1,12 @@
 <div class="container">
   <div class="chatSala">
     <ul>
-      <li *ngFor="let m of lista"><span>{{m.nombre}}</span>: {{m.mensaje}}</li>
+      <li *ngFor="let m of lista"><span>{{m.nombre}}:</span> {{m.mensaje}}</li>
     </ul>
   </div>
   <div class="row">
-    <input type="text" name="" value="" [(ngModel)]=msj (keyup.enter)="enviarMensaje()">
-    <button type="button" name="button" (click)="enviarMensaje()">Enviar</button>
+    <div class="col-12">
+      <input type="text" name="" value="" [(ngModel)]=msj (keyup.enter)="enviarMensaje()">
+    </div>
   </div>
 </div>

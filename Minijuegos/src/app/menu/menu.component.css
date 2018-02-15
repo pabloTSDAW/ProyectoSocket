@@ -1,14 +1,21 @@
-p, h4, span, li {
+h4, span {
+  color: rgb(99, 183, 230);
+}
+
+p, li {
   color: white;
 }
 
 button {
-  background-color: rgb(180, 58, 58);
-  border: none;
+  background-color: inherit;
+  color: rgb(99, 183, 230);
+  border: 2px solid rgb(99, 183, 230);
 }
 
 button:hover {
-  background-color: rgb(205, 202, 202);
+  background-color: rgb(99, 183, 230);
+  color: rgba(6, 6, 6, 0.87);
+  font-weight: bold;
 }
 
 .row {

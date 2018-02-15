@@ -13,6 +13,8 @@ export class RuletaComponent implements OnInit {
   vasos;
   nick;
   jugador;
+  ganador;
+  perdedor;
 
   constructor(private _ServicioService:ServicioService) {}
 
@@ -20,6 +22,7 @@ export class RuletaComponent implements OnInit {
     this.nick = this._ServicioService.nombre;
     $('.mensaje').hide();
     $('.info').hide();
+    $('.resultado').hide();
     this._ServicioService.getSala().subscribe(data=>{
       this.sala = data;
     });
@@ -32,9 +35,13 @@ export class RuletaComponent implements OnInit {
         if (this.nick == elem.nombre) this.jugador = elem;
       }
       $('.info').hide();
+      this.verVidas(this.jugador);
     });
     this._ServicioService.getVasoElegido().subscribe(data=>{
       this.perder(this.vasos[data])
+    });
+    this._ServicioService.getGanador().subscribe(data=>{
+      this.compruebaGanador(data);
     });
   }
 
@@ -46,15 +53,39 @@ export class RuletaComponent implements OnInit {
   perder(elem){
     if(elem.veneno){
       elem.lleno = true;
-      console.log('MUERTO!!!!!');
-      $('.mensaje').show();
-      console.log(this.jugador);
-      // this._ServicioService.sendVida(this.jugador);
     }
     else{
       elem.lleno = false;
-      console.log(this.jugador);
     }
+  }
+
+  verVidas(jugador){
+    $('.vidas').empty();
+    for(let i=1; i <= jugador.vidas; i++){
+      $('.vidas').append('<img src="../assets/vida.png" width="50px" height="50px">');
+    }
+  }
+
+  compruebaGanador(lista){
+    for(let elem of lista){
+      if(elem.vidas == 0) this.perdedor = elem;
+      else this.ganador = elem;
+    }
+    $('.vasos').hide();
+    $('.modal-body').append(
+          '<p>El ganador ha sido: <span>' + this.ganador.nombre + '</span> con <span>' + this.ganador.vidas + '</span> vidas restantes.</p>'+
+          '<p>El perdedor ha sido: <span>' + this.perdedor.nombre + '</span> con <span>' + this.perdedor.vidas + '</span> vidas restantes.</p>'
+    );
+    $('#myModal').modal('show');
+  }
+
+  reiniciarPartida(){
+    $('#myModal').modal('hide');
+    this._ServicioService.sendReiniciar();
+  }
+
+  cerrarModal(){
+    $('#myModal').modal('hide');
   }
 
 }
