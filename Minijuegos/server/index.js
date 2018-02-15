@@ -1,16 +1,30 @@
-let express = require('express')
-let app = express();
-
-let http = require('http');
-let server = http.Server(app);
-
-let socketIO = require('socket.io');
-let io = socketIO(server);
+// let express = require('express')
+// let app = express();
+//
+// let http = require('http');
+// let server = http.Server(app);
+//
+// let socketIO = require('socket.io');
+// let io = socketIO(server);
+//
+// const path = require('path');
+//
+// const publicPath = path.join(__dirname, '../public');
+// const port = process.env.PORT || 3000;
 
 const path = require('path');
+const http = require('http');
+const express = require('express');
+const socketIO = require('socket.io');
+
 
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
+var app = express();
+var server = http.createServer(app);
+var io = socketIO(server);
+
+app.use(express.static(publicPath));
 
 var numeroJugadores = 0;
 var conectados = [];
