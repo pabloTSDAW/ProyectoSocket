@@ -13,6 +13,7 @@ export class RuletaComponent implements OnInit {
   vasos;
   nick;
   jugador;
+  rival;
   ganador;
   perdedor;
 
@@ -32,7 +33,10 @@ export class RuletaComponent implements OnInit {
     });
     this._ServicioService.getJugadoresSala().subscribe(data=>{
       for(let elem of data){
-        if (this.nick == elem.nombre) this.jugador = elem;
+        if (this.nick == elem.nombre) {
+          this.jugador = elem;
+        }
+        else this.rival = elem;
       }
       $('.info').hide();
       this.verVidas(this.jugador);

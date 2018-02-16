@@ -26,10 +26,15 @@ var io = socketIO(server);
 
 app.use(express.static(publicPath));
 
-var numeroJugadores = 0;
 var conectados = [];
 let salaN = 1;
 let jugadoresSala = [[], []];
+
+//MEZCLAR ARRAY
+function shuffle(o){
+  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+  return o;
+}
 
 
 //--------------------------------CONEXION------------------------------------//
@@ -38,10 +43,9 @@ io.on('connection', (socket) => {
   console.log('user connected');
 
   socket.on('nuevo-usuario', function(user) {
-    conectados.push(user);
-    socket.username = user;
-    numeroJugadores++;
-    io.emit('numero', numeroJugadores);
+    if(conectados.indexOf(user) == -1) socket.username = user;
+    else socket.username = user + Math.floor(Math.random()*100);
+    conectados.push(socket.username);
     io.emit('conectados', conectados);
   });
 
@@ -59,7 +63,7 @@ io.on('connection', (socket) => {
     let vasos = [{num: 1, veneno: false, lleno: true}, {num: 2, veneno: true, lleno: true}, {num: 3, veneno: false, lleno: true}, {num: 4, veneno: false, lleno: true}, {num: 5, veneno: false, lleno: true},
                   {num: 6, veneno: false, lleno: true}, {num: 7, veneno: false, lleno: true}, {num: 8, veneno: false, lleno: true}, {num: 9, veneno: false, lleno: true}, {num: 10, veneno: false, lleno: true},
                   {num: 11, veneno: false, lleno: true}, {num: 12, veneno: false, lleno: true}];
-
+    vasos = shuffle(vasos);
     room = salaN;
     io.to("sala-" + salaN).emit('joinSala', "Estás en la sala: " + salaN);
 
@@ -93,6 +97,7 @@ io.on('connection', (socket) => {
         for(let vaso of vasos){
           vaso.lleno = true;
         }
+        vasos = shuffle(vasos);
         io.to("sala-" + room).emit('vasos', vasos);
       }
       for(let jugador of jugadoresSala[salaN-1]){
@@ -107,6 +112,8 @@ io.on('connection', (socket) => {
       for(let jugador of jugadoresSala[salaN-1]){
         jugador.vidas = 3;
         io.to("sala-" + room).emit('jugadores', jugadoresSala[salaN-1]);
+        vasos = shuffle(vasos);
+        io.to("sala-" + room).emit('vasos', vasos);
       }
     });
 
@@ -116,11 +123,9 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', function() {
     console.log('user disconnected');
-    numeroJugadores--;
     conectados = conectados.filter(user=> user != socket.username);
     console.log(conectados);
     io.emit('conectados', conectados);
-    io.emit('numero', numeroJugadores);
   });
 });
 

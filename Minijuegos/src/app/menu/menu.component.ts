@@ -14,11 +14,9 @@ export class MenuComponent implements OnInit {
   constructor(private _ServicioService:ServicioService) {}
   ngOnInit() {
     this.jugador = this._ServicioService.nombre;
-    this._ServicioService.getNumeroJugadores().subscribe(data=>{
-      this.numero_conectados = data;
-    });
     this._ServicioService.getConectados().subscribe(data=>{
       this.conectados = data;
+      this.numero_conectados = data.length;
     });
   }
 

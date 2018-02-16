@@ -9,7 +9,6 @@ export class ServicioService {
     private url = environment.serverSocket;
     private socket;
     public nombre;
-    public numero;
 
     constructor() {
       this.socket = io(this.url);
@@ -23,15 +22,6 @@ export class ServicioService {
       return Observable.create((observer)=>{
         this.socket.on('conectados', (data)=>{
           observer.next(data);
-        });
-      });
-    }
-
-    getNumeroJugadores(): Observable<number>{
-      return Observable.create((observer)=>{
-        this.socket.on('numero', (data)=>{
-          observer.next(data);
-          this.numero = data;
         });
       });
     }
