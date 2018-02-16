@@ -17,9 +17,9 @@ let salaN = 1;
 let jugadoresSala = [[], []];
 
 //MEZCLAR ARRAY
-function shuffle(o){
-  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-  return o;
+function shuffle(lista){
+  for(var j, x, i = lista.length; i; j = Math.floor(Math.random() * i), x = lista[--i], lista[i] = lista[j], lista[j] = x);
+  return lista;
 }
 
 
