@@ -16,7 +16,7 @@ export class MenuComponent implements OnInit {
     this.jugador = this._ServicioService.nombre;
     this._ServicioService.getConectados().subscribe(data=>{
       this.conectados = data;
-      this.numero_conectados = data.length;
+      // this.numero_conectados = data.length;
     });
   }
 
