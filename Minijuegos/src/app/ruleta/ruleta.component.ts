@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ServicioService } from '../servicio.service';
 declare var jquery: any;
 declare var $: any;
@@ -8,7 +8,7 @@ declare var $: any;
   templateUrl: './ruleta.component.html',
   styleUrls: ['./ruleta.component.css']
 })
-export class RuletaComponent implements OnInit {
+export class RuletaComponent implements OnInit, OnDestroy {
   sala;
   vasos;
   nick;
@@ -17,6 +17,12 @@ export class RuletaComponent implements OnInit {
   ganador;
   perdedor;
   puntos = 0;
+
+  suscripcion1;
+  suscripcion2;
+  suscripcion3;
+  suscripcion4;
+  suscripcion5;
 
   constructor(private _ServicioService:ServicioService) {}
 
@@ -27,14 +33,14 @@ export class RuletaComponent implements OnInit {
     $('.resultado').hide();
     $('.maspuntos').hide();
     $('.final').hide();
-    this._ServicioService.getSala().subscribe(data=>{
+    this.suscripcion1 = this._ServicioService.getSala().subscribe(data=>{
       this.sala = data;
     });
-    this._ServicioService.getVasos().subscribe(data=>{
+    this.suscripcion2 = this._ServicioService.getVasos().subscribe(data=>{
       this.vasos = data;
       $('.esperando').hide();
     });
-    this._ServicioService.getJugadoresSala().subscribe(data=>{
+    this.suscripcion3 = this._ServicioService.getJugadoresSala().subscribe(data=>{
       for(let elem of data){
         if (this.nick == elem.nombre) {
           this.jugador = elem;
@@ -44,12 +50,20 @@ export class RuletaComponent implements OnInit {
       }
       $('.info').hide();
     });
-    this._ServicioService.getVasoElegido().subscribe(data=>{
+    this.suscripcion4 = this._ServicioService.getVasoElegido().subscribe(data=>{
       this.perder(this.vasos[data])
     });
-    this._ServicioService.getGanador().subscribe(data=>{
+    this.suscripcion5 = this._ServicioService.getGanador().subscribe(data=>{
       this.compruebaGanador(data);
     });
+  }
+
+  ngOnDestroy(){
+    this.suscripcion1.unsubscribe();
+    this.suscripcion2.unsubscribe();
+    this.suscripcion3.unsubscribe();
+    this.suscripcion4.unsubscribe();
+    this.suscripcion5.unsubscribe();
   }
 
   muestra(event, elem){
