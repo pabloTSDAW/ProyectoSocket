@@ -4,9 +4,6 @@
       <span>Suerte {{nick}}</span><br>
       <span class="sala">{{sala}}</span>
     </div>
-    <div class="col-9">
-      <div class="vidas col-12"></div>
-    </div>
   </div>
   <div class="row">
     <div class="col-3">
@@ -17,6 +14,11 @@
       <div class="row esperando">
         <div class="col-12 text-center">
           <h1>ESPERANDO A OTRO JUGADOR</h1>
+        </div>
+      </div>
+      <div class="row puntos">
+        <div class="col-12 text-center">
+          <p>Puntos: {{puntos}}</p>
         </div>
       </div>
       <div class="row vasos">
@@ -30,6 +32,11 @@
           <h2>Aun no es tu turno</h2>
         </div>
       </div>
+      <div class="row maspuntos">
+        <div class="col-12 text-center">
+          <h3>+20 puntos</h3>
+        </div>
+      </div>
       <div class="col-12">
         <div class="container">
           <div class="modal modal-dialog" id="myModal">
@@ -38,11 +45,8 @@
                 <h2 class="modal-title">Resultado</h2>
               </div>
               <div class="modal-body">
-                <!-- <p>El ganador ha sido: <span>{{ganador.nombre}}</span> con <span>{{ganador.vidas}}</span> vidas restantes.</p>
-                <p>El perdedor ha sido: <span>{{perdedor.nombre}}</span> con <span>{{perdedor.vidas}}</span> vidas restantes.</p> -->
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-succes" data-dismiss="modal" (click)="reiniciarPartida()">Revancha</button>
                 <button type="button" class="btn btn-succes" data-dismiss="modal" (click)="cerrarModal()" [routerLink]="['/menu']">Salir</button>
               </div>
             </div>

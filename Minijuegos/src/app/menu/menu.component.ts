@@ -9,7 +9,7 @@ import { ServicioService } from '../servicio.service';
 export class MenuComponent implements OnInit {
   jugador;
   conectados;
-  numero_conectados;
+  numero_conectados = 0;
 
   constructor(private _ServicioService:ServicioService) {}
   ngOnInit() {

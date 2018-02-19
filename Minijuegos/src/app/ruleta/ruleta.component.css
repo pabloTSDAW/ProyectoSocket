@@ -17,18 +17,17 @@ h1, h2 {
   color: rgb(99, 183, 230);
 }
 
+h3 {
+  font-family: molot;
+  color: rgb(80, 238, 69);
+}
+
 p {
   color: rgb(255, 255, 255);
 }
 
 span {
   color: rgb(99, 183, 230);
-}
-
-.vidas {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 50px;
 }
 
 #myModal {
@@ -45,6 +44,16 @@ span {
   background-color: inherit;
   color: rgb(99, 183, 230);
   font-weight: bold;
+}
+
+.puntos {
+  position: fixed;
+  right: 50px;
+  top: 20px;
+}
+
+.puntos p {
+  color: rgb(99, 183, 230)
 }
 
 /* CHAT SALA */

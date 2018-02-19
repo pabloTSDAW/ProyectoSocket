@@ -16,6 +16,7 @@ export class RuletaComponent implements OnInit {
   rival;
   ganador;
   perdedor;
+  puntos = 0;
 
   constructor(private _ServicioService:ServicioService) {}
 
@@ -24,6 +25,8 @@ export class RuletaComponent implements OnInit {
     $('.mensaje').hide();
     $('.info').hide();
     $('.resultado').hide();
+    $('.maspuntos').hide();
+    $('.final').hide();
     this._ServicioService.getSala().subscribe(data=>{
       this.sala = data;
     });
@@ -35,11 +38,11 @@ export class RuletaComponent implements OnInit {
       for(let elem of data){
         if (this.nick == elem.nombre) {
           this.jugador = elem;
+          this.puntos = elem.puntos;
         }
         else this.rival = elem;
       }
       $('.info').hide();
-      this.verVidas(this.jugador);
     });
     this._ServicioService.getVasoElegido().subscribe(data=>{
       this.perder(this.vasos[data])
@@ -51,7 +54,7 @@ export class RuletaComponent implements OnInit {
 
   muestra(event, elem){
     if (this.jugador.turno) this._ServicioService.sendVasoElegido(this.vasos.indexOf(elem));
-    else $('.info').show();
+    else this._ServicioService.sendMessageSala({nombre: 'SISTEMA', mensaje: 'Es el turno de tu rival'});
   }
 
   perder(elem){
@@ -60,15 +63,19 @@ export class RuletaComponent implements OnInit {
     }
     else{
       elem.lleno = false;
+      if (this.jugador.turno) {
+        $('.maspuntos').fadeIn("slow");
+        $('.maspuntos').fadeOut("slow");
+      }
     }
   }
 
-  verVidas(jugador){
-    $('.vidas').empty();
-    for(let i=1; i <= jugador.vidas; i++){
-      $('.vidas').append('<img src="../assets/vida.png" width="50px" height="50px">');
-    }
-  }
+  // verVidas(jugador){
+  //   $('.vidas').empty();
+  //   for(let i=1; i <= jugador.vidas; i++){
+  //     $('.vidas').append('<img src="../assets/vida.png" width="50px" height="50px">');
+  //   }
+  // }
 
   compruebaGanador(lista){
     for(let elem of lista){
@@ -76,16 +83,12 @@ export class RuletaComponent implements OnInit {
       else this.ganador = elem;
     }
     $('.vasos').hide();
+    $('.modal-body').empty();
     $('.modal-body').append(
-          '<p>El ganador ha sido: <span>' + this.ganador.nombre + '</span> con <span>' + this.ganador.vidas + '</span> vidas restantes.</p>'+
-          '<p>El perdedor ha sido: <span>' + this.perdedor.nombre + '</span> con <span>' + this.perdedor.vidas + '</span> vidas restantes.</p>'
+          '<p>El ganador ha sido: <span style="color: rgb(99, 183, 230); font-weight: bold;">' + this.ganador.nombre + '</span> con <span style="color: rgb(99, 183, 230); font-weight: bold;">' + this.ganador.puntos + '</span> puntos.</p>'+
+          '<p>El perdedor ha sido: <span style="color: rgb(99, 183, 230); font-weight: bold;">' + this.perdedor.nombre + '</span> con <span style="color: rgb(99, 183, 230); font-weight: bold;">' + this.perdedor.puntos + '</span> puntos.</p>'
     );
     $('#myModal').modal('show');
-  }
-
-  reiniciarPartida(){
-    $('#myModal').modal('hide');
-    this._ServicioService.sendReiniciar();
   }
 
   cerrarModal(){
