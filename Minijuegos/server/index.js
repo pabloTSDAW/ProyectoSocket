@@ -45,72 +45,67 @@ io.on('connection', (socket) => {
     io.emit('mensajeChat', msg);
   });
 
+  socket.on('reset', function() {
+    socket.removeAllListeners('nuevo-mensaje-sala');
+    socket.removeAllListeners('vaso-elegido');
+  })
+
 //--------------------------------PARTIDA------------------------------------//
 
   socket.on('nueva-partida', function(msg) {
-    if (io.nsps['/'].adapter.rooms["sala-" + salaN] && io.nsps['/'].adapter.rooms["sala-" + salaN].length > 1) salaN++;
+    // if (io.nsps['/'].adapter.rooms["sala-" + salaN] && io.nsps['/'].adapter.rooms["sala-" + salaN].length > 1) salaN++;
     socket.join("sala-" + salaN);
-    let room;
-    vasos2 = shuffle(vasos);
-    room = salaN;
-    io.to("sala-" + salaN).emit('joinSala', "Estás en la sala: " + salaN);
+    socket.sala = salaN;
+    // vasos2 = shuffle(vasos);
+    vasos2 = vasos;
+    io.to("sala-" + salaN).emit('joinSala', "Estás en la sala: " + socket.sala);
 
     let turno = false;
     if (jugadoresSala[salaN-1].length+1 == 1) turno = true;
 
     jugadoresSala[salaN-1].push({num: jugadoresSala[salaN-1].length+1, nombre: socket.username, turno: turno, puntos: 0, vidas: 1});
+    console.log(jugadoresSala);
     if(jugadoresSala[salaN-1].length == 2){
       jugadoresSala.push([]);
-      io.to("sala-" + room).emit('vasos', vasos2);
-      io.to("sala-" + room).emit('jugadores', jugadoresSala[salaN-1]);
+      io.to("sala-" + socket.sala).emit('vasos', vasos2);
+      io.to("sala-" + socket.sala).emit('jugadores', jugadoresSala[salaN-1]);
+      salaN++;
     }
 
     //CHAT SALA
     socket.on('nuevo-mensaje-sala', function(msg) {
-      io.to("sala-" + room).emit('mensajeChatSala', msg);
+      io.to("sala-" + socket.sala).emit('mensajeChatSala', msg);
     });
 
     //ELEGIR VASO
     socket.on('vaso-elegido', function(msg) {
       if(!vasos2[msg].veneno){
         vasos2[msg].lleno = false;
-        io.to("sala-" + room).emit('vaso', vasos2.indexOf(vasos2[msg]));
-        for(let jugador of jugadoresSala[salaN-1]){
+        io.to("sala-" + socket.sala).emit('vaso', vasos2.indexOf(vasos2[msg]));
+        for(let jugador of jugadoresSala[socket.sala-1]){
           if (jugador.turno == true) {
             jugador.turno = false;
             jugador.puntos += 20;
           }
           else jugador.turno = true;
-          io.to("sala-" + room).emit('jugadores', jugadoresSala[salaN-1]);
+          io.to("sala-" + socket.sala).emit('jugadores', jugadoresSala[socket.sala-1]);
         }
       }
       else {
-        for(let jugador of jugadoresSala[salaN-1]){
+        for(let jugador of jugadoresSala[socket.sala-1]){
           if (jugador.nombre == socket.username) {
             jugador.vidas -= 1;
             jugador.puntos -= 20;
           }
         }
         for(let elem of vasos2) elem.lleno = true;
-        io.to("sala-" + room).emit('mensajeChatSala', {nombre: 'SISTEMA', mensaje: 'Has perdido ' + socket.username});
-        io.to("sala-" + room).emit('fin', jugadoresSala[salaN-1]);
+        io.to("sala-" + socket.sala).emit('mensajeChatSala', {nombre: 'SISTEMA', mensaje: 'Has perdido ' + socket.username});
+        io.to("sala-" + socket.sala).emit('fin', jugadoresSala[socket.sala-1]);
+
+        //SACAR JUGADORES DE LA SALA
+        socket.leave("sala-" + socket.sala);
       }
     });
-
-    //REINICIAR PARTIDA
-    // socket.on('reiniciar', function() {
-    //   for(let jugador of jugadoresSala[salaN-1]){
-    //     jugador.puntos = 0;
-    //     jugador.vidas = 1;
-    //   }
-    //   io.to("sala-" + room).emit('jugadores', jugadoresSala[salaN-1]);
-    //   vasos = shuffle(vasos);
-    //   for(let vaso of vasos){
-    //     vaso.lleno = true;
-    //   }
-    //   io.to("sala-" + room).emit('vasos', vasos);
-    //   reinicio = 0;
-    // });
 
   });
 
@@ -121,6 +116,8 @@ io.on('connection', (socket) => {
     conectados = conectados.filter(user=> user != socket.username);
     console.log(conectados);
     io.emit('conectados', conectados);
+    io.to("sala-" + socket.sala).emit('partida-cancelada', 'El oponente ha abandonado la partda.');
+    jugadoresSala[socket.sala - 1] = jugadoresSala[salaN - 1].filter(elem => elem.nombre != socket.username);
   });
 });
 

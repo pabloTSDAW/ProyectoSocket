@@ -74,6 +74,10 @@ export class ServicioService {
       this.socket.emit('vaso-elegido', vaso);
     }
 
+    sendReset() {
+      this.socket.emit('reset');
+    }
+
     getVasoElegido(){
       return Observable.create((observer)=>{
         this.socket.on('vaso', (data)=>{
@@ -93,6 +97,14 @@ export class ServicioService {
     getGanador(): Observable<any>{
       return Observable.create((observer)=>{
         this.socket.on('fin', (data)=>{
+          observer.next(data);
+        });
+      });
+    }
+
+    getGanador2(): Observable<any>{
+      return Observable.create((observer)=>{
+        this.socket.on('partida-cancelada', (data)=>{
           observer.next(data);
         });
       });

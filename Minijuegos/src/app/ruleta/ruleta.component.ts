@@ -23,6 +23,7 @@ export class RuletaComponent implements OnInit, OnDestroy {
   suscripcion3;
   suscripcion4;
   suscripcion5;
+  suscripcion6;
 
   constructor(private _ServicioService:ServicioService) {}
 
@@ -56,6 +57,9 @@ export class RuletaComponent implements OnInit, OnDestroy {
     this.suscripcion5 = this._ServicioService.getGanador().subscribe(data=>{
       this.compruebaGanador(data);
     });
+    this.suscripcion6 = this._ServicioService.getGanador2().subscribe(data=>{
+      this.compruebaGanador2(data);
+    });
   }
 
   ngOnDestroy(){
@@ -64,6 +68,7 @@ export class RuletaComponent implements OnInit, OnDestroy {
     this.suscripcion3.unsubscribe();
     this.suscripcion4.unsubscribe();
     this.suscripcion5.unsubscribe();
+    this.suscripcion6.unsubscribe();
   }
 
   muestra(event, elem){
@@ -101,6 +106,19 @@ export class RuletaComponent implements OnInit, OnDestroy {
     $('.modal-body').append(
           '<p>El ganador ha sido: <span style="color: rgb(99, 183, 230); font-weight: bold;">' + this.ganador.nombre + '</span> con <span style="color: rgb(99, 183, 230); font-weight: bold;">' + this.ganador.puntos + '</span> puntos.</p>'+
           '<p>El perdedor ha sido: <span style="color: rgb(99, 183, 230); font-weight: bold;">' + this.perdedor.nombre + '</span> con <span style="color: rgb(99, 183, 230); font-weight: bold;">' + this.perdedor.puntos + '</span> puntos.</p>'
+    );
+    $('#myModal').modal('show');
+  }
+
+  cerrarModal(){
+    $('#myModal').modal('hide');
+  }
+
+  compruebaGanador2(dato){
+    $('.vasos').hide();
+    $('.modal-body').empty();
+    $('.modal-body').append(
+          '<p><span style="color: rgb(99, 183, 230); font-weight: bold;">' + dato + '</span></p>';
     );
     $('#myModal').modal('show');
   }
