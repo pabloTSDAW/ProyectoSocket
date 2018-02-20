@@ -118,13 +118,8 @@ export class RuletaComponent implements OnInit, OnDestroy {
     $('.vasos').hide();
     $('.modal-body').empty();
     $('.modal-body').append(
-          '<p><span style="color: rgb(99, 183, 230); font-weight: bold;">' + dato + '</span></p>';
-    );
+          '<p><span style="color: rgb(99, 183, 230); font-weight: bold;">' + dato + '</span></p>');
     $('#myModal').modal('show');
-  }
-
-  cerrarModal(){
-    $('#myModal').modal('hide');
   }
 
 }
