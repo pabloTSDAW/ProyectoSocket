@@ -1,5 +1,24 @@
 # Minijuegos
 
+Proyecto realizado con Angular + Node + Socket + Bootstrap.
+
+Requerimientos cumplidos (a evaluar):
+
+•	Permitir a, al menos, dos jugadores realizar una partida simultánea. Ambos deben jugar de un modo simultaneo gracias a Socket.io
+•	Inicialmente la aplicación mostrará una página de bienvenida (no debe comenzar el juego con sólo cargar la página). Uno de los jugadores (o de otro modo que consideres según tu juego) podrá iniciar la partida. Si no hay contrincantes conectados no debe poder comenzarse ninguna partida.
+•	Debe implementarse un sistema de puntuaciones.
+•	Se deben controlar los casos en que se gana o pierde, controlando el juego todas las situaciones posibles y evitando que la partida continúe.
+•	Al finalizar la partida, ambos ven un resumen del resultado y vuelven a la pantalla de inicio.
+•	El servidor debe ser estable y tratar correctamente cualquier problema.
+
+•	(extra) El cliente será una SAP que deberá desarrollarse usando Angular y Bootstrap.
+•	(extra) Implementar salas de juego. Es decir, permitir que varios usuarios realicen partidas independientes entre ellos.
+•	(extra) Los usuarios se identifican con nombre como requisito obligatorio antes de acceder a la aplicación.
+•	(extra) Crear un chat general de la aplicación al que se accede desde la página inicial.
+•	(extra) Asociar a cada juego una sala de chat independiente.
+
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.5.
 
 ## Development server
