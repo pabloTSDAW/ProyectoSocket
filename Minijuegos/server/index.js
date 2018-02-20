@@ -53,18 +53,15 @@ io.on('connection', (socket) => {
 //--------------------------------PARTIDA------------------------------------//
 
   socket.on('nueva-partida', function(msg) {
-    // if (io.nsps['/'].adapter.rooms["sala-" + salaN] && io.nsps['/'].adapter.rooms["sala-" + salaN].length > 1) salaN++;
     socket.join("sala-" + salaN);
     socket.sala = salaN;
-    // vasos2 = shuffle(vasos);
-    vasos2 = vasos;
+    vasos2 = shuffle(vasos);
     io.to("sala-" + salaN).emit('joinSala', "Estás en la sala: " + socket.sala);
 
     let turno = false;
     if (jugadoresSala[salaN-1].length+1 == 1) turno = true;
 
     jugadoresSala[salaN-1].push({num: jugadoresSala[salaN-1].length+1, nombre: socket.username, turno: turno, puntos: 0, vidas: 1});
-    console.log(jugadoresSala);
     if(jugadoresSala[salaN-1].length == 2){
       jugadoresSala.push([]);
       io.to("sala-" + socket.sala).emit('vasos', vasos2);
@@ -114,7 +111,6 @@ io.on('connection', (socket) => {
   socket.on('disconnect', function() {
     console.log('user disconnected');
     conectados = conectados.filter(user=> user != socket.username);
-    console.log(conectados);
     io.emit('conectados', conectados);
     io.to("sala-" + socket.sala).emit('partida-cancelada', 'El oponente ha abandonado la partda.');
     jugadoresSala[socket.sala - 1] = jugadoresSala[salaN - 1].filter(elem => elem.nombre != socket.username);
