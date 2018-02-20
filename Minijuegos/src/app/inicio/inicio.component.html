@@ -1,6 +1,18 @@
 <div class="container-fluid text-center">
-  <h1>BIENVENIDO A MINIJUEGOS</h1>
-  <p>Por favor, introduce tu nick:</p>
-  <input type="text" name="" value="" [(ngModel)]=nick>
-  <button type="button" name="button" [routerLink]="['/menu']" (click)="entrar()">Entrar</button>
+  <div class="row title">
+    <div class="col-12">
+      <h1>BIENVENIDO A MINIJUEGOS</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <p>Por favor, introduce tu nick:</p>
+    </div>
+  </div>
+  <div class="row entrar">
+    <div class="col-12">
+      <input type="text" name="" value="" [(ngModel)]=nick>
+      <button type="button" name="button" [routerLink]="['/menu']" (click)="entrar()">Entrar</button>
+    </div>
+  </div>
 </div>

@@ -4,7 +4,13 @@
   align-content: center;
 }
 
+.title {
+  margin-bottom: 20px;
+}
+
 h1 {
+  font-family: snes;
+  font-size: 4em;
   color: rgb(99, 183, 230);
 }
 
@@ -12,10 +18,16 @@ p {
   color: white;
 }
 
+.entrar {
+  justify-content: center;
+}
+
 input {
   background-color: inherit;
   margin-right: 5px;
   color: white;
+  width: 25%;
+  padding: 2px 5px;
 }
 
 input:hover {

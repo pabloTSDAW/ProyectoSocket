@@ -56,6 +56,16 @@ span {
   color: rgb(99, 183, 230)
 }
 
+.maspuntos {
+  position: absolute;
+  top: 35%;
+  left: 20%;
+}
+
+.maspuntos h3 {
+  font-size: 6em;
+}
+
 /* CHAT SALA */
 .chat {
   width: 300px;

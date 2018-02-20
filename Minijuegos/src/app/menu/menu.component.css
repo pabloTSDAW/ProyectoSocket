@@ -1,9 +1,25 @@
+.container-fluid {
+  margin-bottom: 190px;
+}
+
 h4, span {
   color: rgb(99, 183, 230);
 }
 
+h4 {
+  margin-bottom: 20px;
+}
+
 p, li {
   color: white;
+}
+
+.conectados ul {
+  padding-left: 0;
+}
+
+.col-12 {
+  margin-bottom: 25px;
 }
 
 button {
@@ -18,8 +34,16 @@ button:hover {
   font-weight: bold;
 }
 
-.row {
-  padding: 10%;
+.info {
+  padding: 10% 0 5% 0;
+}
+
+.instrucciones p {
+  padding: 0 20%;
+}
+
+.jugar button {
+  width: 20%;
 }
 
 .conectados {

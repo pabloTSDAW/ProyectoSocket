@@ -1,16 +1,16 @@
 <div class="container-fluid tablero">
-  <div class="row">
+  <div class="row" style="margin-bottom: 20px;">
     <div class="col-3">
       <span>Suerte {{nick}}</span><br>
       <span class="sala">{{sala}}</span>
     </div>
   </div>
   <div class="row">
-    <div class="col-3">
+    <div class="col-12 col-md-3">
       <app-chat-sala class="chat"></app-chat-sala>
     </div>
-    <div class="col-1 clearfix"></div>
-    <div class="col-7">
+    <div class="col-12 col-md-1 clearfix"></div>
+    <div class="col-12 col-md-7">
       <div class="row esperando">
         <div class="col-12 text-center">
           <h1>ESPERANDO A OTRO JUGADOR</h1>
@@ -23,8 +23,8 @@
       </div>
       <div class="row vasos">
         <div class="col-6 col-md-3" *ngFor="let vaso of vasos">
-          <img *ngIf="vaso.lleno; else elseBlock" src="../assets/lleno.png" alt="" width="100px" height="100px" (click)="muestra($event, vaso)">
-          <ng-template #elseBlock><img src="../assets/vacio.png" alt="" width="100px" height="100px" (click)="muestra($event, vaso)"></ng-template>
+          <img *ngIf="vaso.lleno; else elseBlock" src="../assets/lleno.png" alt="" width="100px" height="105px" (click)="muestra($event, vaso)">
+          <ng-template #elseBlock><img src="../assets/vacio.png" alt="" width="100px" height="105px" (click)="muestra($event, vaso)"></ng-template>
         </div>
       </div>
       <div class="row info">
@@ -33,7 +33,7 @@
         </div>
       </div>
       <div class="row maspuntos">
-        <div class="col-12 text-center">
+        <div class="col-12">
           <h3>+20 puntos</h3>
         </div>
       </div>

@@ -56,6 +56,7 @@ io.on('connection', (socket) => {
     socket.join("sala-" + salaN);
     socket.sala = salaN;
     vasos2 = shuffle(vasos);
+    for(let elem of vasos2) elem.lleno = true;
     io.to("sala-" + salaN).emit('joinSala', "Estás en la sala: " + socket.sala);
 
     let turno = false;
