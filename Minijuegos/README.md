@@ -18,7 +18,6 @@ Requerimientos cumplidos (a evaluar):
 •	(extra) Asociar a cada juego una sala de chat independiente.
 
 
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.5.
 
 ## Development server
