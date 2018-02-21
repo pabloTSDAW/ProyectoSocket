@@ -2,6 +2,8 @@
 
 Proyecto realizado con Angular + Node + Socket + Bootstrap.
 
+Página del juego: minijuegospablo.herokuapp.com
+
 Requerimientos cumplidos (a evaluar):
 
 - Permitir a, al menos, dos jugadores realizar una partida simultánea. Ambos deben jugar de un modo simultaneo gracias a Socket.io
