@@ -2,7 +2,7 @@
 
 Proyecto realizado con Angular + Node + Socket + Bootstrap.
 
-Página del juego: <a href="minijuegospablo.herokuapp.com">minijuegospablo.herokuapp.com</a>
+Página del juego: https://minijuegospablo.herokuapp.com/
 
 Requerimientos cumplidos (a evaluar):
 
